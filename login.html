@@ -1,0 +1,90 @@
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Clone</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function getfunction()
+        {
+            var arr = [];
+            var username = document.getElementById('username').value;
+            var myHeaders = new Headers();
+            myHeaders.append("User-Agent", username);
+
+            var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+            };
+            url = "https://api.github.com/users/"+username+"/repos";
+            console.log(url);
+            fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(commits => { 
+                var text = '<h3 style="padding-top:20px;">Repository Names</h3>';
+                for (var i=0; i<commits.length; i++) {
+                    var repoName = commits[i].name;
+                   // console.log(repoName);
+                   text += '<div class="col-12">'+repoName+'</div>';
+                  
+                }
+                document.getElementById('repoNames').innerHTML = text;
+            })
+            console.log(arr);
+           /* for (var i=0; i<arr.length; i++) {
+                var Name = arr[i];
+                document.getElementById('repoName').innerHTML = '<div class="col-12">'+Name+'</div>';
+            }*/
+        }
+        
+    </script>
+</head>
+
+
+<body style="background-color: rgb(72, 209, 209);">
+    <div>
+        <div width="500px" style="text-align: center;">
+            
+                <div class="div">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12" style="text-align:center;"><label style="font-weight: bold;"><h3>GitHub Clone</h3></label></div>
+                    </div>
+                </div>
+
+                    <div class="div">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 col-sm-12" style="text-align:center;"><img src="https://image.flaticon.com/icons/png/512/25/25231.png" width="50px"></div>
+                        </div>
+                    </div> <br>
+
+                <div class="div">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12" style="text-align:center;"><label for="username" style="font-weight: bold;">User Name <label><input type="text" id="username" required value="" placeholder="Enter your Github username" style="width: 250px;;"></div>
+                    </div>
+                </div>
+
+                <div class="div">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12"><input type="button"  style="border:0px;font-weight:initial;padding: 5px 20px; background-color: chocolate;color: white;" value="Get Repository Details" onclick="getfunction()"></div>
+                    </div>
+                </div>
+
+                
+
+                <div class="row" id="repoNames" style="display: inline;">
+                        
+                </div>
+                
+
+        </div>
+    </div>
+</body>
+
+
+</html>
